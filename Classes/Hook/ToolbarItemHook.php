@@ -24,7 +24,7 @@ class ToolbarItemHook implements \TYPO3\CMS\Backend\Toolbar\ToolbarItemHookInter
 	protected $EXTKEY = 'cabag_loginas';
 
 	public function __construct(\TYPO3\CMS\Backend\Controller\BackendController &$backendReference = NULL) {
-		$GLOBALS['LANG']->includeLLFile('EXT:cabag_loginas/locallang_db.xml');
+		$GLOBALS['LANG']->includeLLFile('EXT:cabag_loginas/Resources/Private/Language/locallang_db.xlf');
 		$this->backendReference = $backendReference;
 
 		$email = $GLOBALS['BE_USER']->user['email'];
