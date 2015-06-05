@@ -66,11 +66,11 @@ class ToolbarItemHook implements \TYPO3\CMS\Backend\Toolbar\ToolbarItemHookInter
 				$toolbarMenu[] = '<a href="#" class="toolbar-item"><img' . \TYPO3\CMS\Backend\Utility\IconUtility::skinImg($this->backPath, 'gfx/su_back.gif', 'width="16" height="16"') . ' title="' . $title . '" alt="' . $title . '" /></a>';
 
 				$toolbarMenu[] = '<ul class="toolbar-item-menu" style="display: none;">';
-
+				$userIcon = \TYPO3\CMS\Backend\Utility\IconUtility::getSpriteIcon('apps-pagetree-folder-contains-fe_users', array('style' => 'background-position: 0 10px;'));
 				foreach ($this->users as $user) {
 					$linktext = $this->formatLinkText($user, $defLinkText);
 					$link = $this->getHREF($user);
-					$toolbarMenu[] = '<li><a href="' . htmlspecialchars($link) . '" target="_blank"><img' . \TYPO3\CMS\Backend\Utility\IconUtility::skinImg($this->backPath, 'gfx/i/fe_users.gif', 'width="16" height="16"') . ' title="' . $title . '" alt="' . $title . '" /> ' . $linktext . '</a></li>';
+					$toolbarMenu[] = '<li><a href="' . htmlspecialchars($link) . '" title="' . $title . '" target="_blank">' . $userIcon . $linktext . '</a></li>';
 				}
 
 				$toolbarMenu[] = '</ul>';
@@ -96,7 +96,7 @@ class ToolbarItemHook implements \TYPO3\CMS\Backend\Toolbar\ToolbarItemHookInter
 		}
 	}
 
-	function getHREF($user) {
+	public function getHREF($user) {
 		$parameterArray = array();
 		$parameterArray['userid'] = (string) $user['uid'];
 		$parameterArray['timeout'] = (string) $timeout = time() + 3600;
@@ -124,7 +124,7 @@ class ToolbarItemHook implements \TYPO3\CMS\Backend\Toolbar\ToolbarItemHookInter
 		return $link;
 	}
 
-	function getLink($data) {
+	public function getLink($data) {
 		$label = $data['label'] . ' ' . $data['row']['username'];
 		$link = $this->getHREF($data['row']);
 		$content = '<a href="' . $link . '" target="_blank" style="text-decoration:underline;">' . $label . '</a>';
@@ -132,11 +132,10 @@ class ToolbarItemHook implements \TYPO3\CMS\Backend\Toolbar\ToolbarItemHookInter
 		return $content;
 	}
 
-	function getLoginAsIconInTable($user, $title = '') {
-		$label = '<img' . \TYPO3\CMS\Backend\Utility\IconUtility::skinImg($this->backPath, 'gfx/su_back.gif', 'width="16" height="16"') . ' title="' . $title . '" alt="' . $title . '" />';
+	public function getLoginAsIconInTable($user, $title = '') {
+		$switchUserIcon = \TYPO3\CMS\Backend\Utility\IconUtility::getSpriteIcon('actions-system-backend-user-emulate', array('style' => 'background-position: 0 10px;'));
 		$link = $this->getHREF($user);
-		$content = '<a class="toolbar-item" href="' . $link . '" target="_blank">' . $label . '</a>';
-
+		$content = '<a title="' . $title . '" href="' . $link . '" target="_blank">' . $switchUserIcon . '</a>';
 		return $content;
 	}
 
@@ -147,7 +146,7 @@ class ToolbarItemHook implements \TYPO3\CMS\Backend\Toolbar\ToolbarItemHookInter
 	 *
 	 * @return string '../' if nothing was found, the link in the form of http://www.domain.tld/link/page.html otherwise.
 	 */
-	function getRedirectForCurrentDomain($pid) {
+	public function getRedirectForCurrentDomain($pid) {
 		$extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['cabag_loginas']);
 		$domain = \TYPO3\CMS\Backend\Utility\BackendUtility::getViewDomain($pid);
 		$domainArray = parse_url($domain);
