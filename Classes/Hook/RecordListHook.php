@@ -39,7 +39,8 @@ class RecordListHook implements \TYPO3\CMS\Recordlist\RecordList\RecordListHookI
 			}
 			$cells = $tempcells;
 			$loginas = $this->loginAsObj->getLoginAsIconInTable($row);
-			$cells['loginas'] = $loginas;
+			// moveRight is only used for pages, therefore we use it here
+			$cells['moveRight'] = $loginas;
 		}
 
 		return $cells;
