@@ -10,31 +10,28 @@
  * writing. "version" and "dependencies" must not be touched!
  ***************************************************************/
 
-$EM_CONF[$_EXTKEY] = array (
+$EM_CONF[$_EXTKEY] = array(
 	'title' => 'CAB Login As',
 	'description' => 'Within the backend you have a button in the fe_user table and in the upper right corner to quickly login as this fe user in frontend.',
 	'category' => 'be',
-	'version' => '1.2.0',
+	'version' => '2.0.0',
 	'state' => 'stable',
-	'uploadfolder' => true,
+	'uploadfolder' => TRUE,
 	'createDirs' => '',
-	'clearcacheonload' => true,
+	'clearcacheonload' => TRUE,
 	'author' => 'Dimitri Koenig',
 	'author_email' => 'dk@cabag.ch',
 	'author_company' => '',
-	'constraints' => 
-	array (
-		'depends' => 
-		array (
-			'cms' => '',
-			'typo3' => '4.5.0-6.2.99',
+	'constraints' =>
+		array(
+			'depends' =>
+				array(
+					'typo3' => '6.2.0-7.99.99',
+				),
+			'conflicts' =>
+				array(),
+			'suggests' =>
+				array(),
 		),
-		'conflicts' => 
-		array (
-		),
-		'suggests' => 
-		array (
-		),
-	),
 );
 

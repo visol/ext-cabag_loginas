@@ -3,12 +3,7 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-
-if (version_compare(TYPO3_version, '6.2', '<')) {
-	require_once(t3lib_extMgm::extPath('cabag_loginas') . 'class.tx_cabagloginas.php');
-}
-
-$GLOBALS['TYPO3_CONF_VARS']['typo3/backend.php']['additionalBackendItems'][] = t3lib_extMgm::extPath('cabag_loginas') . 'cabagloginas_toolbar.php';
+$GLOBALS['TYPO3_CONF_VARS']['typo3/backend.php']['additionalBackendItems'][] = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('cabag_loginas') . 'Resources/PHP/Toolbar.php';
 
 $tempColumns = array(
 	'tx_cabagloginas_loginas' => array(
@@ -16,14 +11,13 @@ $tempColumns = array(
 		'label' => 'LLL:EXT:cabag_loginas/locallang_db.xml:fe_users.tx_cabagloginas_loginas',
 		'config' => array(
 			'type' => 'user',
-			'userFunc' => 'tx_cabagloginas->getLink',
+			'userFunc' => 'Cabag\CabagLoginas\Hook\ToolbarItemHook->getLink',
 		)
 	),
 );
 
-t3lib_div::loadTCA('fe_users');
-t3lib_extMgm::addTCAcolumns('fe_users', $tempColumns, 1);
-t3lib_extMgm::addToAllTCAtypes('fe_users', 'tx_cabagloginas_loginas', '', 'after:lastlogin');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('fe_users', $tempColumns, 1);
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users', 'tx_cabagloginas_loginas', '', 'after:lastlogin');
 
 $tx_cabagloginas_extconf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['cabag_loginas']);
 
@@ -43,7 +37,6 @@ if (!empty($tx_cabagloginas_extconf['enableDomainBasedRedirect'])) {
 		),
 	);
 
-	t3lib_div::loadTCA('sys_domain');
-	t3lib_extMgm::addTCAcolumns('sys_domain', $tempColumns, 1);
-	t3lib_extMgm::addToAllTCAtypes('sys_domain', 'tx_cabagfileexplorer_redirect_to');
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('sys_domain', $tempColumns, 1);
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('sys_domain', 'tx_cabagfileexplorer_redirect_to');
 }
