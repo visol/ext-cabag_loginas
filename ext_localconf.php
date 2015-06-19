@@ -27,6 +27,6 @@ $TYPO3_CONF_VARS['SVCONF']['auth']['setup']['FE_alwaysFetchUser'] = 1;
 		'os' => '',
 		'exec' => '',
 
-		'className' => '\Cabag\CabagLoginas\Typo3\Service\LoginAsService',
+		'className' => 'Cabag\CabagLoginas\Typo3\Service\LoginAsService',
 	)
 );
