@@ -97,6 +97,9 @@ class ToolbarItemHook implements \TYPO3\CMS\Backend\Toolbar\ToolbarItemHookInter
 	}
 
 	public function getHREF($user) {
+		if (!is_numeric($user['uid'])) {
+			return '#';
+		}
 		$parameterArray = array();
 		$parameterArray['userid'] = (string) $user['uid'];
 		$parameterArray['timeout'] = (string) $timeout = time() + 3600;
